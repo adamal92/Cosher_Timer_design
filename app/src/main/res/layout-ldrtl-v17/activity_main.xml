@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/hours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter hours:"
+            android:textColorHint="#000000"
+
+            android:inputType="numberSigned"
+            android:layoutDirection="rtl"/>
+        <!-- When putting a text the hint disappears -->
+        <EditText
+            android:id="@+id/mints"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter minutes:"
+            android:textColorHint="#000000"
+            android:inputType="numberSigned" />
+
+        <EditText
+            android:id="@+id/secs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter seconds: "
+            android:textColorHint="#000000"
+            android:inputType="numberSigned" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/start_clock"
+                android:layout_width="248dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@null"
+
+                android:onClick="start_timer"
+                app:srcCompat="@drawable/clock"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="65dp"
+                tools:ignore="VectorDrawableCompat" />
+
+            <ImageButton
+                android:id="@+id/stop_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@null"
+                android:onClick="stop_timer"
+                app:srcCompat="@drawable/stop2"
+                tools:layout_editor_absoluteX="90dp"
+                tools:layout_editor_absoluteY="65dp"
+                tools:ignore="VectorDrawableCompat" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Time left: "
+            android:textColor="#000000"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/timer_out"
+            android:layout_width="match_parent"
+            android:layout_height="98dp"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:text="done"
+            android:textColor="#000000"
+            android:textSize="30sp"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
