@@ -1,6 +1,7 @@
 package adam.cosher_timer;
 
 import android.annotation.SuppressLint;
+import android.appwidget.AppWidgetManager;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.text.Html;
@@ -62,6 +63,7 @@ public class Timer extends CountDownTimer {
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     public void onTick(long millisUntilFinished) {
+        // TODO: print the time to the widget TextView
         Timer.stopped_on_millis = millisUntilFinished;
 
         long secsUntilFinished = millisUntilFinished / 1000;
@@ -89,6 +91,7 @@ public class Timer extends CountDownTimer {
         }
 //        this.timerOutput.setText(String.format("counting time\n%s:%s:%s", h, m, s));
 //        String.format("counting time  %s:%s:%s:%s:%s", h, m, s,hs, ms)
+        // TODO: update widget
     }
 
     /**

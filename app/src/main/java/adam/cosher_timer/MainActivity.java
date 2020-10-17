@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void stop_timer(View view){
 //        final TextView timer_out = this.findViewById(R.id.timer_out);
+        if(this.timer == null) return;
         this.timer.cancel_timer(); // shuts down the timer
         this.stopped_timer = true;
         EditText h = this.findViewById(R.id.hours);

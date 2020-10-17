@@ -17,15 +17,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+<!--
         <activity android:name=".StopTimerActivity"
-            android:parentActivityName=".MainActivity"> <!-- second screen (opens with click on 'activity') -->
+            android:parentActivityName=".MainActivity"> <!- second screen (opens with click on 'activity')
 
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <!- The meta-data tag is required if you support API level 15 and lower
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
-        </activity>
+        </activity> -->
 
 
         <receiver android:name=".WidgetTimer" >
@@ -43,6 +43,14 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info" />
         </receiver>
+
+        <receiver android:name=".StopTimerActivity" >
+        <intent-filter>
+            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+        </intent-filter>
+        <meta-data android:name="android.appwidget.provider"
+            android:resource="@xml/widget_info" />
+    </receiver>
     </application>
 
 </manifest>
