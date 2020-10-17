@@ -6,4 +6,7 @@
     <string name="seconds">הכנס שניות:</string>
     <string name="time_left">:זמן שנותר</string>
     <string name="done">נגמר הזמן</string>
+    <string name="notification_title">זמן לשמור</string>
+    <string name="notification_text">אפשר לאכול כעת</string>
+    <string name="counting">זמן שנותר</string>
 </resources>

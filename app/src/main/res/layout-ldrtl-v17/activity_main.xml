@@ -4,41 +4,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="end"
+    android:textAlignment="textEnd">
 
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:layout_gravity="start"
+        android:textAlignment="textStart">
 
         <EditText
             android:id="@+id/hours"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter hours:"
+            android:hint="@string/hours"
             android:textColorHint="#000000"
 
             android:inputType="numberSigned"
-            android:layoutDirection="rtl"/>
+            android:layoutDirection="rtl"
+            android:layout_gravity="start"
+            android:textAlignment="textStart"/>
         <!-- When putting a text the hint disappears -->
         <EditText
             android:id="@+id/mints"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter minutes:"
+            android:hint="@string/minutes"
             android:textColorHint="#000000"
-            android:inputType="numberSigned" />
+            android:inputType="numberSigned"
+            android:layout_gravity="start"
+            android:textAlignment="textStart"/>
 
         <EditText
             android:id="@+id/secs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter seconds: "
+            android:hint="@string/seconds"
             android:textColorHint="#000000"
-            android:inputType="numberSigned" />
+            android:inputType="numberSigned"
+            android:layoutDirection="rtl"
+            android:layout_gravity="start"
+            android:textAlignment="textStart"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -71,9 +82,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Time left: "
+            android:text="@string/time_left"
             android:textColor="#000000"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            android:layout_gravity="start"
+            android:textAlignment="textStart"/>
 
         <TextView
             android:id="@+id/timer_out"
@@ -81,8 +94,9 @@
             android:layout_height="98dp"
             android:fontFamily="casual"
             android:gravity="center"
-            android:text="done"
+            android:text="@string/done"
             android:textColor="#000000"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textAlignment="center"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
