@@ -1,9 +1,11 @@
 package adam.cosher_timer;
 
 import android.annotation.SuppressLint;
+import android.appwidget.AppWidgetManager;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.text.Html;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -17,6 +19,7 @@ import static adam.cosher_timer.MainActivity.alert;
 */
 public class Timer extends CountDownTimer {
 
+    protected RemoteViews widget_views; // the output text zone of the widget
     protected TextView timerOutput; // the output text zone
     @SuppressLint("StaticFieldLeak")
     protected static Timer timer = null; // mimics a Singleton
@@ -30,12 +33,13 @@ public class Timer extends CountDownTimer {
      * @param interval the time between every tick of the clock
      * @param timerOutput the TextView to which the time is written
      */
-    public Timer(long millisInFuture, long interval, TextView timerOutput){
+    public Timer(long millisInFuture, long interval, TextView timerOutput,  RemoteViews widget_views){
         super(millisInFuture, interval);
         this.timerOutput = timerOutput;
         this.millis_time = millisInFuture;
         this.interval = interval;
         Timer.timer = this;
+        this.widget_views = widget_views;
     }
 
     /**
@@ -45,9 +49,9 @@ public class Timer extends CountDownTimer {
      * @param timerOutput the TextView to which the time is written
      * @return an instance of this Timer class
      */
-    public static Timer getTimer(long millisInFuture, long interval, TextView timerOutput){
+    public static Timer getTimer(long millisInFuture, long interval, TextView timerOutput,  RemoteViews widget_views){
         if(Timer.timer == null)
-            Timer.timer = new Timer(millisInFuture, interval, timerOutput);
+            Timer.timer = new Timer(millisInFuture, interval, timerOutput, widget_views);
         return Timer.timer;
     }
 
@@ -59,6 +63,7 @@ public class Timer extends CountDownTimer {
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     public void onTick(long millisUntilFinished) {
+        // TODO: print the time to the widget TextView
         Timer.stopped_on_millis = millisUntilFinished;
 
         long secsUntilFinished = millisUntilFinished / 1000;
@@ -78,11 +83,15 @@ public class Timer extends CountDownTimer {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             this.timerOutput.setText(android.text.Html
                     .fromHtml(String.format(MainActivity.COUNTING+"<br/>%s:%s:%s", h, m, s), Html.FROM_HTML_MODE_LEGACY));
+            this.widget_views.setTextViewText(R.id.timer_out_widget, android.text.Html
+                    .fromHtml(String.format(MainActivity.COUNTING+"<br/>%s:%s:%s", h, m, s), Html.FROM_HTML_MODE_LEGACY));
         } else {
             this.timerOutput.setText(MainActivity.COUNTING+String.format("\n%s:%s:%s", h, m, s));
+            this.widget_views.setTextViewText(R.id.timer_out_widget, MainActivity.COUNTING+String.format("\n%s:%s:%s", h, m, s));
         }
 //        this.timerOutput.setText(String.format("counting time\n%s:%s:%s", h, m, s));
 //        String.format("counting time  %s:%s:%s:%s:%s", h, m, s,hs, ms)
+        // TODO: update widget
     }
 
     /**
@@ -91,6 +100,7 @@ public class Timer extends CountDownTimer {
     @Override
     public void onFinish() {
         this.timerOutput.setText(MainActivity.DONE);
+        this.widget_views.setTextViewText(R.id.timer_out_widget, MainActivity.DONE);
         MainActivity.alert(MainActivity.mainContext);
     }
 

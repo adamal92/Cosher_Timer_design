@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RemoteViews;
 
 /**
  * This class creates the main UI elements of the program
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean stopped_timer_widget = false; // true if stop button was pressed
     public static boolean start_timer_widget = false; // true if start button was pressed
     @SuppressLint("StaticFieldLeak")
-    public static Context mainContext = null; // a reference to this objects' instance (casted to Context)
+    public static MainActivity mainContext = null; // a reference to this objects' instance (casted later to Context)
 
     /**
      * Initializes some of the static members and creates a channel
@@ -76,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void start_timer(View view){
+        Log.d("Adam", "MainActivity.start_timer()");
         final android.widget.TextView timer_out = this.findViewById(R.id.timer_out);
+//        final android.widget.TextView widget_timer_out = this.findViewById(R.id.timer_out_widget); //--------------------
+        RemoteViews widget_views = new RemoteViews("adam.cosher_timer", R.layout.widget_layout); // context.getPackageName() = adam.cosher_timer
+
         Long ho, mi, sex;
         EditText H = this.findViewById(R.id.hours);
         EditText M = this.findViewById(R.id.mints);
@@ -96,11 +101,11 @@ public class MainActivity extends AppCompatActivity {
 //        this.timer = new adam.cosher_timer.Timer(millis, 1, timer_out);
 
         if(this.milliseconds_till_finish == millis){
-            this.timer = Timer.getTimer(millis, 1, timer_out);
+            this.timer = Timer.getTimer(millis, 1, timer_out, widget_views);
         } else{
             this.milliseconds_till_finish = millis;
             if(this.timer != null) this.timer.cancel_timer();
-            this.timer = new Timer(millis, 1, timer_out);
+            this.timer = new Timer(millis, 1, timer_out, widget_views);
         }
 
         this.timer.update_time(millis);
@@ -114,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void stop_timer(View view){
 //        final TextView timer_out = this.findViewById(R.id.timer_out);
+        if(this.timer == null) return;
         this.timer.cancel_timer(); // shuts down the timer
         this.stopped_timer = true;
         EditText h = this.findViewById(R.id.hours);
