@@ -27,7 +27,7 @@ public class StopTimerActivity extends AppWidgetProvider {
         // Set the text of TextView
 //        WidgetTimer.a++;
 //        views.setTextViewText(R.id.timer_out_widget, String.valueOf(WidgetTimer.a));
-        // Instruct the widget manager to update the widget
+        // Instruct the widget manager to update the widget7
         appWidgetManager.updateAppWidget(WidgetTimer.WidgetId, views);
     }
 }

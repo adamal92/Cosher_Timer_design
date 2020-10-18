@@ -25,6 +25,7 @@ public class StartTimerActivity extends AppWidgetProvider {
 //        Log.d("Adam", context.getPackageName());
         // Set the text of TextView
 //        views.setTextViewText(R.id.timer_out_widget, String.valueOf(WidgetTimer.a));
+//        views.setTextViewText(R.id.timer_out_widget, "String.valueOf(WidgetTimer.a)");
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(WidgetTimer.WidgetId, views);
     }
