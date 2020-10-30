@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Кошерный таймер</string>
+    <string name="hours">Введите часы:</string>
+    <string name="minutes">Введите минуты:</string>
+    <string name="seconds">Введите секунды: </string>
+    <string name="time_left">Оставшееся время: </string>
+    <string name="done">выполнена!</string>
+    <string name="notification_title">Кошерное время</string>
+    <string name="notification_text">Ты можешь поесть сейчас</string>
+    <string name="counting">отсчет времени</string>
+</resources>

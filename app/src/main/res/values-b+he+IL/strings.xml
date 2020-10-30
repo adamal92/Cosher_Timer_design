@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">טיימר כשרות</string>
+    <string name="hours">הכנס שעות:</string>
+    <string name="minutes">הכנס דקות:</string>
+    <string name="seconds">הכנס שניות:</string>
+    <string name="time_left">זמן שנותר:</string>
+    <string name="done">נגמר הזמן</string>
+    <string name="notification_title">זמן לשמור</string>
+    <string name="notification_text">אפשר לאכול כעת</string>
+</resources>

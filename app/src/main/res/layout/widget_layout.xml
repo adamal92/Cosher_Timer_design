@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="99dp">
+
+        <ImageButton
+            android:id="@+id/stop_clock_widget"
+            android:layout_width="114dp"
+            android:layout_height="114dp"
+            android:background="@drawable/stop2"
+ />
+
+        <ImageButton
+            android:id="@+id/start_clock_widget"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/clock" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/time_left"
+        android:textColor="#000000"
+        android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/timer_out_widget"
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:text="@string/done"
+        android:textColor="#000000"
+        android:textSize="30sp"/>
+</LinearLayout>
