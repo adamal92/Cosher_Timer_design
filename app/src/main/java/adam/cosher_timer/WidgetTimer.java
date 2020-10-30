@@ -14,6 +14,10 @@ public class WidgetTimer extends AppWidgetProvider {
     private boolean stopped_timer;
     private static final String ACTION_NAME = "start_timer";
     public static int WidgetId = 0;
+    public static WidgetTimer widgetTimer = null;
+    public static Context onUpdate_context = null;
+    public static AppWidgetManager onUpdate_appWidgetManager = null;
+    public static int[] onUpdate_appWidgetIds = null;
 
     /**
      * enables the widget buttons
@@ -91,6 +95,10 @@ public class WidgetTimer extends AppWidgetProvider {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         Log.d("Adam", "WidgetTimer.onUpdate()");
 //        MainActivity.alert(MainActivity.mainContext);
+        WidgetTimer.widgetTimer = this;
+        WidgetTimer.onUpdate_context = context;
+        WidgetTimer.onUpdate_appWidgetManager = appWidgetManager;
+        WidgetTimer.onUpdate_appWidgetIds = appWidgetIds;
 
         // Get all ids
         ComponentName thisWidget = new ComponentName(context, WidgetTimer.class);

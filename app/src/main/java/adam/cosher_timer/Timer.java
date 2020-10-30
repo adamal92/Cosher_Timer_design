@@ -91,7 +91,16 @@ public class Timer extends CountDownTimer {
         }
 //        this.timerOutput.setText(String.format("counting time\n%s:%s:%s", h, m, s));
 //        String.format("counting time  %s:%s:%s:%s:%s", h, m, s,hs, ms)
-        // TODO: update widget
+
+        //
+        RemoteViews views = new RemoteViews(StartTimerActivity.start_context.getPackageName(), R.layout.widget_layout);
+        views.setTextViewText(R.id.timer_out_widget, MainActivity.COUNTING+String.format("\n%s:%s:%s", h, m, s));
+
+//        WidgetTimer.widgetTimer.onUpdate(WidgetTimer.onUpdate_context,
+//                WidgetTimer.onUpdate_appWidgetManager, WidgetTimer.onUpdate_appWidgetIds);
+        StartTimerActivity.start_appWidgetManager.updateAppWidget(WidgetTimer.WidgetId, views);
+
+
     }
 
     /**

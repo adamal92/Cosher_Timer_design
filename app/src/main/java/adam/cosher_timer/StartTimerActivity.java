@@ -1,5 +1,6 @@
 package adam.cosher_timer;
 
+import android.annotation.SuppressLint;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.BroadcastReceiver;
@@ -13,11 +14,18 @@ import android.widget.RemoteViews;
 import androidx.annotation.RequiresApi;
 
 public class StartTimerActivity extends AppWidgetProvider {
+    @SuppressLint("StaticFieldLeak")
+    public static Context start_context = null;
+    public static AppWidgetManager start_appWidgetManager = null;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         Log.d("Adam", "StartTimerActivity.onUpdate()");
+        StartTimerActivity.start_context = context;
+        StartTimerActivity.start_appWidgetManager = appWidgetManager;
+
         MainActivity.mainContext.start_timer(new View(MainActivity.mainContext));
 
         // Construct the RemoteViews object
