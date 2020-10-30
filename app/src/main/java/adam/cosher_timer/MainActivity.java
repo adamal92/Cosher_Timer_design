@@ -18,7 +18,7 @@ import android.widget.RemoteViews;
 
 /**
  * This class creates the main UI elements of the program
- * @version 1.0
+ * @version 2.0
  * @author Adam L
  * */
 public class MainActivity extends AppCompatActivity {
@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected Timer timer;
     protected long milliseconds_till_finish;
     protected boolean stopped_timer = false; // true if stop button was pressed
-    public static boolean stopped_timer_widget = false; // true if stop button was pressed
-    public static boolean start_timer_widget = false; // true if start button was pressed
     @SuppressLint("StaticFieldLeak")
     public static MainActivity mainContext = null; // a reference to this objects' instance (casted later to Context)
 
@@ -50,38 +48,21 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.DONE = this.getString(R.string.done);
         MainActivity.COUNTING = this.getString(R.string.counting);
 
-        MainActivity.mainContext = this;
+        MainActivity.mainContext = this; // create an intended memory leak
         create_channel(CHANNEL_ID, "channel name", "channel description");
-
-
-//        alert(MainActivity.mainContext);
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.O)
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        Log.i("Adam", String.valueOf(MainActivity.start_timer_widget));
-//        if(MainActivity.stopped_timer_widget){
-//            MainActivity.stopped_timer_widget = false;
-//            this.stop_timer(null);
-//        }if(MainActivity.start_timer_widget){
-//            MainActivity.start_timer_widget = false;
-//            this.start_timer(null);
-//        }
-//    }
-
     /**
-     * Starts the timer
+     * Starts the timer from the main start button
      * @param view the main activity's view
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void start_timer(View view){
         Log.d("Adam", "MainActivity.start_timer()");
         final android.widget.TextView timer_out = this.findViewById(R.id.timer_out);
-//        final android.widget.TextView widget_timer_out = this.findViewById(R.id.timer_out_widget); //--------------------
-        RemoteViews widget_views = new RemoteViews("adam.cosher_timer", R.layout.widget_layout); // context.getPackageName() = adam.cosher_timer
-
+        RemoteViews widget_views =
+                new RemoteViews("adam.cosher_timer", R.layout.widget_layout); // context.getPackageName() = adam.cosher_timer
+        // get the desired time from the user
         Long ho, mi, sex;
         EditText H = this.findViewById(R.id.hours);
         EditText M = this.findViewById(R.id.mints);
@@ -92,14 +73,13 @@ public class MainActivity extends AppCompatActivity {
         mi = !M.getText().toString().equals("") ? Long.valueOf(Integer.parseInt(M.getText().toString())) : Long.valueOf(0);
         sex = !S.getText().toString().equals("") ?  Long.valueOf(Integer.parseInt(S.getText().toString())) : Long.valueOf(0);
 
-        Log.i("Adam", String.format("h: %d m: %d s: %d", ho, mi, sex));
+        Log.d("Adam", String.format("h: %d m: %d s: %d", ho, mi, sex));
 
-        long millis = ho*3600*1000 + mi*60*1000 + sex*1000;
-
+        long millis = ho*3600*1000 + mi*60*1000 + sex*1000; // total time in milliseconds
+        // when stop button is clicked, remember the time on which the timer was stopped
         if(stopped_timer){ millis = Timer.stopped_on_millis; this.stopped_timer = false; }
 
-//        this.timer = new adam.cosher_timer.Timer(millis, 1, timer_out);
-
+        // create and set the timer
         if(this.milliseconds_till_finish == millis){
             this.timer = Timer.getTimer(millis, 1, timer_out, widget_views);
         } else{
@@ -110,18 +90,17 @@ public class MainActivity extends AppCompatActivity {
 
         this.timer.update_time(millis);
         this.timer.start(); // starts the timer
-
     }
 
     /**
-     * Stops the timer
+     * Stops the timer from the main stop button
      * @param view the main activity's view
      */
     public void stop_timer(View view){
-//        final TextView timer_out = this.findViewById(R.id.timer_out);
         if(this.timer == null) return;
         this.timer.cancel_timer(); // shuts down the timer
         this.stopped_timer = true;
+        // set the user input to default values
         EditText h = this.findViewById(R.id.hours);
         EditText m = this.findViewById(R.id.mints);
         EditText S = this.findViewById(R.id.secs);
@@ -151,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public static void alert(Context context){
         Log.i("Adam", "alert()");
-        // build the notification7
+        // build the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.notify)
                 .setContentTitle(MainActivity.TITLE)
