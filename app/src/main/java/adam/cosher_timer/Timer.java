@@ -1,20 +1,16 @@
 package adam.cosher_timer;
 
 import android.annotation.SuppressLint;
-import android.appwidget.AppWidgetManager;
 import android.os.Build;
 import android.os.CountDownTimer;
-import android.text.Html;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
-import static adam.cosher_timer.MainActivity.alert;
-
 /**
 * This class is responsible for presenting the time to the user
-* @version 1.0
+* @version 2.0
 * @author Adam L
 */
 public class Timer extends CountDownTimer {
@@ -56,6 +52,7 @@ public class Timer extends CountDownTimer {
     }
 
     /**
+     * Updates the text of the clock every second
      * Gets called on every tick of the timer
      * @param millisUntilFinished the remaining amount of time in milliseconds
      */
@@ -63,9 +60,9 @@ public class Timer extends CountDownTimer {
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     public void onTick(long millisUntilFinished) {
-        // TODO: print the time to the widget TextView
         Timer.stopped_on_millis = millisUntilFinished;
 
+        // calculate the current time
         long secsUntilFinished = millisUntilFinished / 1000;
         long hours = secsUntilFinished / 3600;
         long minutes = secsUntilFinished / 60 - hours * 60;
@@ -74,42 +71,37 @@ public class Timer extends CountDownTimer {
         long hundredth_seconds = milliseconds / 10;
         long milli = milliseconds % 10;
 
+        // generate Strings of the current time
         String h = hours >= 10 ? String.valueOf(hours) : "0" + hours;
         String m = minutes >= 10 ? String.valueOf(minutes) : "0" + minutes;
         String s = seconds >= 10 ? String.valueOf(seconds) : "0" + seconds;
         String hs = hundredth_seconds >= 10 ? String.valueOf(hundredth_seconds) : "0" + hundredth_seconds;
-        String ms = milli >= 10 ? String.valueOf(milli) : "0" + milli;
+        String ms = "0" + milli; // milli < 10 will always be true
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            this.timerOutput.setText(android.text.Html
-                    .fromHtml(String.format(MainActivity.COUNTING+"<br/>%s:%s:%s", h, m, s), Html.FROM_HTML_MODE_LEGACY));
-            this.widget_views.setTextViewText(R.id.timer_out_widget, android.text.Html
-                    .fromHtml(String.format(MainActivity.COUNTING+"<br/>%s:%s:%s", h, m, s), Html.FROM_HTML_MODE_LEGACY));
-        } else {
-            this.timerOutput.setText(MainActivity.COUNTING+String.format("\n%s:%s:%s", h, m, s));
-            this.widget_views.setTextViewText(R.id.timer_out_widget, MainActivity.COUNTING+String.format("\n%s:%s:%s", h, m, s));
-        }
-//        this.timerOutput.setText(String.format("counting time\n%s:%s:%s", h, m, s));
-//        String.format("counting time  %s:%s:%s:%s:%s", h, m, s,hs, ms)
-
-        //
-        RemoteViews views = new RemoteViews(StartTimerActivity.start_context.getPackageName(), R.layout.widget_layout);
+        // set text of the main textView
+        this.timerOutput.setText(MainActivity.COUNTING+String.format("\n%s:%s:%s", h, m, s));
+        // set text of the widgets' textView
+        RemoteViews views = new RemoteViews(MainActivity.PACKAGE_NAME, R.layout.widget_layout); // StartTimerActivity.start_context.getPackageName()
         views.setTextViewText(R.id.timer_out_widget, MainActivity.COUNTING+String.format("\n%s:%s:%s", h, m, s));
-
-//        WidgetTimer.widgetTimer.onUpdate(WidgetTimer.onUpdate_context,
-//                WidgetTimer.onUpdate_appWidgetManager, WidgetTimer.onUpdate_appWidgetIds);
-        StartTimerActivity.start_appWidgetManager.updateAppWidget(WidgetTimer.WidgetId, views);
-
-
+        // update the widget
+        if(WidgetTimer.widget_appWidgetManager != null)
+            WidgetTimer.widget_appWidgetManager.updateAppWidget(WidgetTimer.WidgetId, views);
     }
 
     /**
+     * Set the clocks' text to 'DONE', update the widget & alert the user
      * Gets called when the Timer is cancelled or when millisUntilFinished is 0
      */
     @Override
     public void onFinish() {
         this.timerOutput.setText(MainActivity.DONE);
-        this.widget_views.setTextViewText(R.id.timer_out_widget, MainActivity.DONE);
+//        this.widget_views.setTextViewText(R.id.timer_out_widget, MainActivity.DONE);
+
+        RemoteViews views = new RemoteViews(MainActivity.PACKAGE_NAME, R.layout.widget_layout);
+        views.setTextViewText(R.id.timer_out_widget, MainActivity.DONE);
+        if(WidgetTimer.widget_appWidgetManager != null)
+            WidgetTimer.widget_appWidgetManager.updateAppWidget(WidgetTimer.WidgetId, views);
+
         MainActivity.alert(MainActivity.mainContext);
     }
 
