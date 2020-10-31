@@ -13,27 +13,29 @@ import android.widget.RemoteViews;
 
 import androidx.annotation.RequiresApi;
 
+/**
+ * Create the widget start button action
+ * @version 2.0
+ * @author Adam L
+ */
 public class StartTimerActivity extends AppWidgetProvider {
-    @SuppressLint("StaticFieldLeak")
-    public static Context start_context = null;
-    public static AppWidgetManager start_appWidgetManager = null;
-
+    /**
+     * When clicked, start the timer and update the widget
+     * @param context the widgets' context
+     * @param appWidgetManager
+     * @param appWidgetIds  an array of all the ids of the widgets
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         Log.d("Adam", "StartTimerActivity.onUpdate()");
-        StartTimerActivity.start_context = context;
-        StartTimerActivity.start_appWidgetManager = appWidgetManager;
 
-        MainActivity.mainContext.start_timer(new View(MainActivity.mainContext));
+        MainActivity.mainContext.start_timer(new View(MainActivity.mainContext)); // start the timer
 
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout); // context.getPackageName() = adam.cosher_timer
-//        Log.d("Adam", context.getPackageName());
+        RemoteViews views = new RemoteViews(MainActivity.PACKAGE_NAME, R.layout.widget_layout); // context.getPackageName() = adam.cosher_timer
         // Set the text of TextView
-//        views.setTextViewText(R.id.timer_out_widget, String.valueOf(WidgetTimer.a));
-//        views.setTextViewText(R.id.timer_out_widget, "String.valueOf(WidgetTimer.a)");
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(WidgetTimer.WidgetId, views);
     }

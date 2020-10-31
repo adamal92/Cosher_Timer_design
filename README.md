@@ -1,2 +1,2 @@
-# Cosher_Timer_design
-starting to design the app
+# Cosher_Timer
+this app is a timer for people who eat Cosher

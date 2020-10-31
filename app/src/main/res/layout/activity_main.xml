@@ -36,8 +36,17 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/seconds"
-            android:textColorHint="#000000"
-            android:inputType="numberSigned" />
+            android:textColorHint="#ffffff"
+            android:inputType="numberSigned"
+
+            android:background="@drawable/edittext2_borders"
+            android:paddingHorizontal="15dp"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            android:layout_marginBottom="35dp"
+            android:layout_above="@+id/editText2"
+            android:layout_centerHorizontal="true"
+            android:autofillHints=""/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
